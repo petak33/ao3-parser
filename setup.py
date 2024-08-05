@@ -7,8 +7,8 @@ setuptools.setup(
     name="ao3-parser",
     author="petak33",
     description="Parses raw data from a AO3 browsing page into works and provides tools to create urls for requests.",
-    version="0.0.1",
-    url="github.com",
+    version="1.0.0",
+    url="https://github.com/petak33/ao3-parser",
 
     readme = "README.md",
     python_requires='>=3.8',

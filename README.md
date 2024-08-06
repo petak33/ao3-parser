@@ -57,5 +57,33 @@ Works on page: 20
 Title of the first work: [Title Of This Work]
 ```
 
+## Work
+All data that is parsed from a page into works can be seen below.
+```
+ID: int
+Title: str
+Authors: list[str]
+Fandom: list[str]
+Language: str
+
+Words: int
+Chapters: int
+Expected_Chapters: int
+Comments: int
+Kudos: int
+Bookmarks: int
+Hits: int
+UpdateDate: datetime
+
+Rating: Params.Rating
+Categories: list[Params.Category]
+Warnings: list[Params.Warning]
+Completed: bool
+
+Relationships: list[str]
+Characters: list[str]
+Additional_Tags: list[str]
+```
+
 ### Notes
 `Params.Category.No_Category` is not recognized as a valid ID on AO3 and should not be used with `Search`.

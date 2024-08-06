@@ -54,7 +54,7 @@ class Page:
                 stats.find("dd", class_="language").text,                                   # Language
                 parseStats(stats.find("dd", class_="words")),                               # Words
                 int(chapters.replace(',', '')),                                             # Chapters
-                int(expected_chapters.replace(',', '') if expected_chapters != '?' else 0), # nChapters
+                int(expected_chapters.replace(',', '') if expected_chapters != '?' else 0), # Expected Chapters
                 parseStats(stats.find("dd", class_="comments")),                            # Comments
                 parseStats(stats.find("dd", class_="kudos")),                               # Kudos
                 parseStats(stats.find("dd", class_="bookmarks")),                           # Bookmarks

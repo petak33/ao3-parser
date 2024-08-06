@@ -73,5 +73,5 @@ class Search:
             params["work_search[date_to]"] = self.Date_To.strftime("%Y-%m-%d")
         return params
 
-    def getUrl(self, page=1) -> str:
+    def GetUrl(self, page=1) -> str:
         return f"https://archiveofourown.org/works?commit=Sort+and+Filter&{urllib.parse.urlencode(self.getParams(page), doseq=True)}"

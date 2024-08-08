@@ -12,6 +12,10 @@ class Params:
         Comments = 7
         Bookmarks = 8
 
+    class Direction(Enum):
+        Ascending = "asc"
+        Descending = "desc"
+
     class Rating(Enum):
         Not_Rated = 9
         General_Audiences = 10

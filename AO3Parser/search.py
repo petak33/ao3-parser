@@ -8,6 +8,7 @@ class Search:
 
     Fandom: str
     Sort_by: Params.Sort
+    Sort_Direction: Params.Direction
     Include_Ratings: list[Params.Rating]
     Include_Warnings: list[Params.Warning]
     Include_Categories: list[Params.Category]
@@ -21,13 +22,14 @@ class Search:
     Date_From: datetime
     Date_To: datetime
 
-    def __init__(self, Fandom: str, Sort_by=Params.Sort.Revised,
+    def __init__(self, Fandom: str, Sort_by: Params.Sort = Params.Sort.Revised, Sort_Direction: Params.Direction = None,
                  Include_Ratings: list[Params.Rating] = None, Include_Warnings: list[Params.Warning] = None, Include_Categories: list[Params.Category] = None,
                  Exclude_Ratings: list[Params.Rating] = None, Exclude_Warnings: list[Params.Warning] = None, Exclude_Categories: list[Params.Category] = None,
                  Crossovers: Params.Crossovers = Params.Crossovers.Include, Completion_Status: Params.Completion = Params.Completion.All,
                  Words_From: int = None, Words_To: int = None, Date_From: datetime = None, Date_To: datetime = None):
         self.Fandom = Fandom
         self.Sort_by = Sort_by
+        self.Sort_Direction = Sort_Direction
         self.Include_Ratings = Extra.MakeIter(Include_Ratings)
         self.Include_Warnings = Extra.MakeIter(Include_Warnings)
         self.Include_Categories = Extra.MakeIter(Include_Categories)
@@ -71,6 +73,8 @@ class Search:
             params["work_search[date_from]"] = self.Date_From.strftime("%Y-%m-%d")
         if self.Date_To:
             params["work_search[date_to]"] = self.Date_To.strftime("%Y-%m-%d")
+        if self.Sort_Direction:
+            params["work_search[sort_direction]"] = self.Sort_Direction.value
         return params
 
     def GetUrl(self, page=1) -> str:

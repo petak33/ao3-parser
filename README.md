@@ -85,7 +85,6 @@ Relationships: list[str]
 Characters: list[str]
 Additional_Tags: list[str]
 ```
-`Words`, `Expected_Chapters`, `Comments`, `Kudos`, `Bookmarks` and `Hits` are set to 0 if not specified on a page.
-
+`Summary`, `Words`, `Expected_Chapters`, `Comments`, `Kudos`, `Bookmarks` and `Hits` are set to `None` if not specified on a page.
 ### Notes
 `Params.Category.No_Category` is not recognized as a valid ID on AO3 and should not be used with `Search`.

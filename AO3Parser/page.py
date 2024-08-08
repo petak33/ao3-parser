@@ -55,26 +55,26 @@ class Page:
                 elif tag["class"] == ['freeforms']:
                     freeforms.append(name)
 
-            def parseStats(stat: bs4.element.Tag | None) -> int:
-                return int(stat.text.replace(',', '')) if stat and stat.text else 0
+            def parseStats(stat: bs4.element.Tag | None) -> int | None:
+                return int(stat.text.replace(',', '')) if stat and stat.text else None
 
             self.Works.append(
-                Work(int(work["id"].split('_')[1]),                                          # ID
-                work.find("a").text,                                                         # Title
-                authors,                                                                     # Authors
-                fandoms,                                                                     # Fandoms
-                summary.strip(),                                                             # Summary
-                stats.find("dd", class_="language").text,                                    # Language
-                parseStats(stats.find("dd", class_="words")),                                # Words
-                int(chapters.replace(',', '')),                                              # Chapters
-                int(expected_chapters.replace(',', '') if expected_chapters != '?' else 0),  # Expected Chapters
-                parseStats(stats.find("dd", class_="comments")),                             # Comments
-                parseStats(stats.find("dd", class_="kudos")),                                # Kudos
-                parseStats(stats.find("dd", class_="bookmarks")),                            # Bookmarks
-                parseStats(stats.find("dd", class_="hits")),                                 # Hits
-                datetime.strptime(work.find(class_="datetime").text, "%d %b %Y"),    # UpdateDate
-                Params.parseRating(req_tags[0].text),                                        # Rating
-                Params.parseCategories(req_tags[2].text.split(", ")),                        # Categories
-                Params.parseWarnings(req_tags[1].text.split(", ")),                          # Warnings
-                True if work.find("span", class_="complete-yes iswip") else False,           # Completed
-                relationships, characters, freeforms))                                       # Tags
+                Work(int(work["id"].split('_')[1]),                                             # ID
+                work.find("a").text,                                                            # Title
+                authors,                                                                        # Authors
+                fandoms,                                                                        # Fandoms
+                summary.strip() if summary else None,                                           # Summary
+                stats.find("dd", class_="language").text,                                       # Language
+                parseStats(stats.find("dd", class_="words")),                                   # Words
+                int(chapters.replace(',', '')),                                                 # Chapters
+                int(expected_chapters.replace(',', '')) if expected_chapters != '?' else None,  # Expected Chapters
+                parseStats(stats.find("dd", class_="comments")),                                # Comments
+                parseStats(stats.find("dd", class_="kudos")),                                   # Kudos
+                parseStats(stats.find("dd", class_="bookmarks")),                               # Bookmarks
+                parseStats(stats.find("dd", class_="hits")),                                    # Hits
+                datetime.strptime(work.find(class_="datetime").text, "%d %b %Y"),       # UpdateDate
+                Params.parseRating(req_tags[0].text),                                           # Rating
+                Params.parseCategories(req_tags[2].text.split(", ")),                           # Categories
+                Params.parseWarnings(req_tags[1].text.split(", ")),                             # Warnings
+                True if work.find("span", class_="complete-yes iswip") else False,              # Completed
+                relationships, characters, freeforms))                                          # Tags

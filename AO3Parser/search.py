@@ -16,6 +16,7 @@ class Search:
     Exclude_Warnings: list[Params.Warning]
     Exclude_Categories: list[Params.Category]
     Crossovers: Params.Crossovers
+    Single_Chapter: bool
     Completion_Status: Params.Completion
     Words_From: int
     Words_To: int
@@ -25,7 +26,7 @@ class Search:
     def __init__(self, Fandom: str, Sort_by: Params.Sort = Params.Sort.Revised, Sort_Direction: Params.Direction = None,
                  Include_Ratings: list[Params.Rating] = None, Include_Warnings: list[Params.Warning] = None, Include_Categories: list[Params.Category] = None,
                  Exclude_Ratings: list[Params.Rating] = None, Exclude_Warnings: list[Params.Warning] = None, Exclude_Categories: list[Params.Category] = None,
-                 Crossovers: Params.Crossovers = Params.Crossovers.Include, Completion_Status: Params.Completion = Params.Completion.All,
+                 Crossovers: Params.Crossovers = Params.Crossovers.Include, Completion_Status: Params.Completion = Params.Completion.All, Single_Chapter: bool = False,
                  Words_From: int = None, Words_To: int = None, Date_From: datetime = None, Date_To: datetime = None):
         self.Fandom = Fandom
         self.Sort_by = Sort_by
@@ -38,6 +39,7 @@ class Search:
         self.Exclude_Categories = Extra.MakeIter(Exclude_Categories)
         self.Crossovers = Crossovers
         self.Completion_Status = Completion_Status
+        self.Single_Chapter = Single_Chapter
         self.Words_From = Words_From
         self.Words_To = Words_To
         self.Date_From = Date_From
@@ -65,6 +67,8 @@ class Search:
             params["work_search[crossover]"] = self.Crossovers.value
         if self.Completion_Status and self.Completion_Status.value:
             params["work_search[complete]"] = self.Completion_Status.value
+        if self.Single_Chapter:
+            params["work_search[single_chapter]"] = 1
         if self.Words_From:
             params["work_search[words_from]"] = self.Words_From
         if self.Words_To:

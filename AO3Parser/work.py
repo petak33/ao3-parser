@@ -7,8 +7,9 @@ class Work:
     Title: str
     Authors: list[str]
     Fandom: list[str]
-    Language: str
+    Summary: str
 
+    Language: str
     Words: int
     Chapters: int
     Expected_Chapters: int
@@ -27,16 +28,17 @@ class Work:
     Characters: list[str]
     Additional_Tags: list[str]
 
-    def __init__(self, ID: int, Title: str, Authors: [str], Fandom: list[str], Language: str,
-                 Words: int, Chapters: int, Expected_Chapters: int, Comments: int, Kudos: int, Bookmarks: int, Hits: int, UpdateTime: datetime,
+    def __init__(self, ID: int, Title: str, Authors: [str], Fandom: list[str], Summary: str,
+                 Language: str, Words: int, Chapters: int, Expected_Chapters: int, Comments: int, Kudos: int, Bookmarks: int, Hits: int, UpdateTime: datetime,
                  Rating: Params.Rating, Categories: list[Params.Category], Warnings: list[Params.Warning], Completed: bool,
                  Relationships: list[str], Characters: list[str], Additional_Tags: list[str]):
         self.ID = ID
         self.Title = Title
         self.Authors = Authors
         self.Fandom = Fandom
-        self.Language = Language
+        self.Summary = Summary
 
+        self.Language = Language
         self.Words = Words
         self.Chapters = Chapters
         self.Expected_Chapters = Expected_Chapters

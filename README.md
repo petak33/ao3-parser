@@ -59,13 +59,14 @@ Title of the first work: [Title Of This Work]
 
 ## Work
 All data that is parsed from a page into works can be seen below.
-```
+```python
 ID: int
 Title: str
 Authors: list[str]
 Fandom: list[str]
-Language: str
+Summary: str
 
+Language: str
 Words: int
 Chapters: int
 Expected_Chapters: int

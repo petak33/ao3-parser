@@ -9,6 +9,7 @@ class Page:
     Total_Works: int
     Works: list[Work]
 
+
     def __init__(self, html: bytes):
         if html == b"Retry later\n":
             raise RateLimitException
@@ -24,6 +25,17 @@ class Page:
             fandoms: list[str] = []
             for fandom in work.find("h5", class_="fandoms heading").findAll("a", class_="tag"):
                 fandoms.append(fandom.text)
+
+            summary: str = ""
+            summary_block = work.find("blockquote", class_="userstuff summary")
+            if summary_block:
+                for paragraph in summary_block.findAll("p"):
+                    for child in paragraph.children:
+                        if type(child) == bs4.Tag and child.name == "br":
+                            summary += '\n'
+                        else:
+                            summary += child.text
+                    summary += '\n'
 
             stats = work.find(class_="stats")
             chapters, expected_chapters = stats.find("dd", class_="chapters").text.split('/')
@@ -47,21 +59,22 @@ class Page:
                 return int(stat.text.replace(',', '')) if stat and stat.text else 0
 
             self.Works.append(
-                Work(int(work["id"].split('_')[1]),                                         # ID
-                work.find("a").text,                                                        # Title
-                authors,                                                                    # Authors
-                fandoms,                                                                    # Fandoms
-                stats.find("dd", class_="language").text,                                   # Language
-                parseStats(stats.find("dd", class_="words")),                               # Words
-                int(chapters.replace(',', '')),                                             # Chapters
-                int(expected_chapters.replace(',', '') if expected_chapters != '?' else 0), # Expected Chapters
-                parseStats(stats.find("dd", class_="comments")),                            # Comments
-                parseStats(stats.find("dd", class_="kudos")),                               # Kudos
-                parseStats(stats.find("dd", class_="bookmarks")),                           # Bookmarks
-                parseStats(stats.find("dd", class_="hits")),                                # Hits
-                datetime.strptime(work.find(class_="datetime").text, "%d %b %Y"),   # UpdateDate
-                Params.parseRating(req_tags[0].text),                                       # Rating
-                Params.parseCategories(req_tags[2].text.split(", ")),                       # Categories
-                Params.parseWarnings(req_tags[1].text.split(", ")),                         # Warnings
-                True if work.find("span", class_="complete-yes iswip") else False,          # Completed
-                relationships, characters, freeforms))                                      # Tags
+                Work(int(work["id"].split('_')[1]),                                          # ID
+                work.find("a").text,                                                         # Title
+                authors,                                                                     # Authors
+                fandoms,                                                                     # Fandoms
+                summary.strip(),                                                             # Summary
+                stats.find("dd", class_="language").text,                                    # Language
+                parseStats(stats.find("dd", class_="words")),                                # Words
+                int(chapters.replace(',', '')),                                              # Chapters
+                int(expected_chapters.replace(',', '') if expected_chapters != '?' else 0),  # Expected Chapters
+                parseStats(stats.find("dd", class_="comments")),                             # Comments
+                parseStats(stats.find("dd", class_="kudos")),                                # Kudos
+                parseStats(stats.find("dd", class_="bookmarks")),                            # Bookmarks
+                parseStats(stats.find("dd", class_="hits")),                                 # Hits
+                datetime.strptime(work.find(class_="datetime").text, "%d %b %Y"),    # UpdateDate
+                Params.parseRating(req_tags[0].text),                                        # Rating
+                Params.parseCategories(req_tags[2].text.split(", ")),                        # Categories
+                Params.parseWarnings(req_tags[1].text.split(", ")),                          # Warnings
+                True if work.find("span", class_="complete-yes iswip") else False,           # Completed
+                relationships, characters, freeforms))                                       # Tags

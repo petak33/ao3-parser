@@ -2,15 +2,15 @@ from enum import Enum
 
 class Params:
     class Sort(Enum):
-        Author = 0
-        Title = 1
-        Created = 2
-        Revised = 3
-        Words = 4
-        Hits = 5
-        Kudos = 6
-        Comments = 7
-        Bookmarks = 8
+        Author = "authors_to_sort_on"
+        Title = "title_to_sort_on"
+        Created = "created_at"
+        Revised = "revised_at"
+        Words = "word_count"
+        Hits = "hits"
+        Kudos = "kudos_count"
+        Comments = "comments_count"
+        Bookmarks = "bookmarks_count"
 
     class Direction(Enum):
         Ascending = "asc"

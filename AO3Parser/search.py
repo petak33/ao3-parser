@@ -46,7 +46,7 @@ class Search:
     def getParams(self, page=1) -> dict:
         params = {
             "page": page,
-            "work_search[sort_colum]": self.Sort_by.name,
+            "work_search[sort_column]": self.Sort_by.value,
             "tag_id": self.Fandom
         }
         if self.Include_Ratings:

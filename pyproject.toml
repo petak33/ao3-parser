@@ -2,6 +2,9 @@
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+include = ["AO3Parser"]
+
 [project]
 name = "ao3-parser"
 version = "2.0.0"

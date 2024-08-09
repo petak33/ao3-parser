@@ -27,14 +27,30 @@ from datetime import datetime
 
 search = AO3P.Search("Original Work", Sort_by=Params.Sort.Kudos,
                      Include_Ratings=[Params.Rating.General_Audiences],
-                     Words_From=1000, Words_To=1500,
+                     Words_Count="1000-1500",
                      Date_From=datetime(2024, 6, 30))
 url = search.GetUrl(page=1)
 print(f"URL: {url}")
 ```
 ```
-URL: https://archiveofourown.org/works?commit=Sort+and+Filter&page=1&work_search%5Bsort_colum%5D=Kudos&tag_id=Original+Work&include_work_search%5Brating_ids%5D%5B%5D=10&work_search%5Bwords_from%5D=1000&work_search%5Bwords_to%5D=1500&work_search%5Bdate_from%5D=2024-06-30
+URL: https://archiveofourown.org/works?commit=Sort+and+Filter&page=1&work_search%5Bsort_column%5D=kudos_count&tag_id=Original+Work&include_work_search%5Brating_ids%5D%5B%5D=10&work_search%5Bword_count%5D=1000-1500&work_search%5Bdate_from%5D=2024-06-30
 ```
+
+The `Words_Count`, `Hits_Count`, `Kudos_Count`, `Comments_Count` and `Bookmarks_Count` parameters are string types that use AO3 type formatting.
+> #### Work Search: Numerical Values
+> Use the following guidelines when looking for works with a specific amount of words, hits, kudos, comments, or bookmarks. Note that periods and commas are ignored: 1.000 = 1,000 = 1000.
+>
+>> `10`:  
+>> a single number will find works with that exact amount  
+> 
+>> `<100`:  
+>> will find works with less than that amount 
+> 
+>> `>100`:  
+>> will find works with more than that amount  
+> 
+>> `100-1000`:  
+>> will find works in the range of 100 to 1000
 
 ## Page
 

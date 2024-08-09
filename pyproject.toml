@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ao3-parser"
-version = "1.0.0"
+version = "2.0.0"
 authors = [
   {name="petak33"},
 ]
-description = "Package for parsing AO3 pages and creating urls based on requirements."
+description = "Package for parsing AO3 pages into works and creating urls based on requirements."
 
 license = {file = "LICENSE"}
 readme = "README.md"
@@ -19,7 +19,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-keywords = ["ao3", "archiveofourown", "archive of our own"]
+keywords = ["ao3", "archiveofourown", "archive of our own", "ao3 api"]
 
 [project.urls]
 Homepage = "https://github.com/petak33/ao3-parser"

@@ -6,7 +6,7 @@ Instead of handling requests on it's own, it shifts this to the user, giving mor
 The main bottleneck for anyone in need of collecting larger amounts of data.
 (Scraping data for AI training is discouraged)
 
-If this is not what you're looking for, I'd recommend [ao3_api](https://github.com/ArmindoFlores/ao3_api) that handles requests on it's own.
+If this is not what you're looking for, I'd recommend [ao3_api](https://github.com/wendytg/ao3_api) that handles requests on it's own.
 
 ## Installation
 ```bash

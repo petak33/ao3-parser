@@ -7,7 +7,7 @@ include = ["AO3Parser"]
 
 [project]
 name = "ao3-parser"
-version = "2.0.0"
+version = "3.0.0"
 authors = [
   {name="petak33"},
 ]

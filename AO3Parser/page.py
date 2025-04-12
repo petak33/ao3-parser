@@ -14,9 +14,15 @@ class Page:
         if html == b"Retry later\n":
             raise RateLimitException
         html = bs4.BeautifulSoup(html, "html.parser")
-        self.Total_Works = int(html.find("h2", class_="heading").text.strip().split(' ')[4].replace(',', ''))
 
         self.Works = []
+        main = html.find("div", id="main")
+        if main.find('p').text.strip() == "No results found. You may want to edit your search to make it less specific.":
+            self.Total_Works = 0
+            return
+        self.Total_Works = int(main.find("h3", class_="heading").text.strip()[0:-9].replace(',', ''))
+        del main
+
         for work in html.findAll(role="article"):
             authors: list[str] = []
             for author in work.find("h4", class_="heading").findAll("a", rel="author"):
@@ -72,7 +78,7 @@ class Page:
                 parseStats(stats.find("dd", class_="kudos")),                                   # Kudos
                 parseStats(stats.find("dd", class_="bookmarks")),                               # Bookmarks
                 parseStats(stats.find("dd", class_="hits")),                                    # Hits
-                datetime.strptime(work.find(class_="datetime").text, "%d %b %Y"),       # UpdateDate
+                datetime.strptime(work.find(class_="datetime").text, "%d %b %Y"),        # UpdateDate
                 Params.parseRating(req_tags[0].text),                                           # Rating
                 Params.parseCategories(req_tags[2].text.split(", ")),                           # Categories
                 Params.parseWarnings(req_tags[1].text.split(", ")),                             # Warnings

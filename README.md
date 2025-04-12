@@ -23,17 +23,17 @@ Just like on AO3, pages are numbered from 1 and up.
 ```python
 import AO3Parser as AO3P
 from AO3Parser import Params
-from datetime import datetime
 
-search = AO3P.Search("Original Work", Sort_by=Params.Sort.Kudos,
-                     Include_Ratings=[Params.Rating.General_Audiences],
+search = AO3P.Search(Fandoms=["Original Work"], Sort_by=Params.Sort.Kudos,
+                     Rating=Params.Rating.General_Audiences,
+                     Categories=[Params.Category.Multi, Params.Category.Other],
                      Words_Count="1000-1500",
-                     Date_From=datetime(2024, 6, 30))
+                     Date="2 weeks ago")
 url = search.GetUrl(page=1)
 print(f"URL: {url}")
 ```
 ```
-URL: https://archiveofourown.org/works?commit=Sort+and+Filter&page=1&work_search%5Bsort_column%5D=kudos_count&tag_id=Original+Work&include_work_search%5Brating_ids%5D%5B%5D=10&work_search%5Bword_count%5D=1000-1500&work_search%5Bdate_from%5D=2024-06-30
+URL: https://archiveofourown.org/works/search?commit=Search&page=1&work_search%5Bsort_column%5D=kudos_count&work_search%5Bsort_direction%5D=desc&work_search%5Brevised_at%5D=2+weeks+ago&work_search%5Bword_count%5D=1000-1500&work_search%5Bfandom_names%5D=Original+Work&work_search%5Brating_ids%5D=10&work_search%5Bcategory_ids%5D%5B%5D=2246&work_search%5Bcategory_ids%5D%5B%5D=24
 ```
 
 The `Words_Count`, `Hits_Count`, `Kudos_Count`, `Comments_Count` and `Bookmarks_Count` parameters are string types that use AO3 type formatting.
@@ -52,13 +52,45 @@ The `Words_Count`, `Hits_Count`, `Kudos_Count`, `Comments_Count` and `Bookmarks_
 >> `100-1000`:  
 >> will find works in the range of 100 to 1000
 
+The `Date` parameter also uses AO3 style formatting.
+> #### Work Search: Date
+> Create a range of times. If no range is given, then one will be calculated based on the time period specified.
+>
+> Allowable periods: year, week, month, day, hour
+>
+>> `x days ago` = 24 hour period from the beginning to the end of that day
+> 
+>> `x weeks ago` = 7 day period from the beginning to the end of that week
+> 
+>> `x months ago` = 1 month period from the beginning to the end of that month
+> 
+>> `x years ago` = 1 year period from the beginning to the end of that year
+>
+> <details><summary>Examples (taking Wednesday 25th April 2012 as the current day):</summary>
+>
+>> `7 days ago` (this will return all works posted/updated on Wednesday 18th April)
+> 
+>> `1 week ago` (this will return all works posted/updated in the week starting Monday 16th April and ending Sunday 22nd April)
+> 
+>> `2 months ago` (this will return all works posted/updated in the month of February)
+> 
+>> `3 years ago` (this will return all works posted/updated in 2010)
+> 
+>> `< 7 days` (this will return all works posted/updated within the past seven days)
+> 
+>> `> 8 weeks` (this will return all works posted/updated more than eight weeks ago)
+> 
+>> `13-21 months` (this will return all works posted/updated between thirteen and twenty-one months ago)
+> </details>
+> Note that the "ago" is optional.
+
 ## Page
 
 ```python
 import AO3Parser as AO3P
 import requests
 
-search = AO3P.Search("Original Work")
+search = AO3P.Search(Fandoms=["Original Work"])
 url = search.GetUrl()
 page_data = requests.get(url).content
 

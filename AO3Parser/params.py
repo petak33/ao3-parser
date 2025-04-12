@@ -2,6 +2,7 @@ from enum import Enum
 
 class Params:
     class Sort(Enum):
+        Best_Match = "_score"
         Author = "authors_to_sort_on"
         Title = "title_to_sort_on"
         Created = "created_at"

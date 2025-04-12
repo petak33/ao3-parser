@@ -30,7 +30,7 @@ class Params:
         Graphic_Depictions_Of_Violence = 17
         Major_Character_Death = 18
         Rape_Non_Con = 19
-        Underage = 20
+        Underage_Sex = 20
 
     class Category(Enum):
         No_Category = -1 # Non-existent ID, used for parsing
@@ -79,7 +79,7 @@ class Params:
         elif warning == "rape/non-con":
             return Params.Warning.Rape_Non_Con
         elif warning == "underage":
-            return Params.Warning.Underage
+            return Params.Warning.Underage_Sex
         return Params.Warning.No_Archive_Warnings_Apply
     @staticmethod
     def parseWarnings(warnings: list[str]) -> list[Warning]:

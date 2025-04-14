@@ -30,10 +30,13 @@ class Work:
     Characters: list[str]
     Additional_Tags: list[str]
 
+    Published: datetime | None
+
     def __init__(self, ID: int, Title: str, Authors: [str], Fandoms: list[str], Summary: str | None,
                  Language: str, Words: int | None, Chapters: int, Expected_Chapters: int | None, Comments: int | None, Kudos: int | None, Bookmarks: int | None, Hits: int | None, Updated: datetime,
                  Rating: Params.Rating, Categories: list[Params.Category], Warnings: list[Params.Warning], Completed: bool,
-                 Relationships: list[str], Characters: list[str], Additional_Tags: list[str]):
+                 Relationships: list[str], Characters: list[str], Additional_Tags: list[str],
+                 Published: datetime | None = None):
         self.ID = ID
         self.Title = Title
         self.Authors = Authors
@@ -58,6 +61,8 @@ class Work:
         self.Relationships = Relationships
         self.Characters = Characters
         self.Additional_Tags = Additional_Tags
+
+        self.Published = Published
 
     @classmethod
     def FromHTML(cls, html: bytes):
@@ -115,6 +120,9 @@ class Work:
         def parseStats(stat: bs4.element.Tag | None) -> int | None:
             return int(stat.text.replace(',', '')) if stat and stat.text else None
 
+        published = datetime.strptime(stats.find("dd", class_="published").text, "%Y-%m-%d")
+        updated = stats.find("dd", class_="status")
+
         return cls(
             int(html.find("li", class_="share").find("a", href=True)["href"].split('/')[2]),  # ID
             html.find("h2", class_="title heading").text.strip(),                             # Title
@@ -129,12 +137,13 @@ class Work:
             parseStats(stats.find("dd", class_="kudos")),                                     # Kudos
             parseStats(stats.find("dd", class_="bookmarks")),                                 # Bookmarks
             parseStats(stats.find("dd", class_="hits")),                                      # Hits
-            datetime.strptime(stats.find("dd", class_="status").text, "%Y-%m-%d"),            # UpdateDate
+            datetime.strptime(updated.text, "%Y-%m-%d") if updated else published,            # Updated
             Params.parseRating(meta.find("dd", class_="rating tags").text.strip()),           # Rating
             Params.parseCategories(categories),                                               # Categories
             Params.parseWarnings(warnings),                                                   # Warnings
             chapters == expected_chapters,                                                    # Completed
-            relationships, characters, freeforms                                              # Tags
+            relationships, characters, freeforms,                                             # Tags
+            published                                                                         # Published
         )
 
     def __str__(self):

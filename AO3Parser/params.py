@@ -78,7 +78,7 @@ class Params:
             return Params.Warning.Major_Character_Death
         elif warning == "rape/non-con":
             return Params.Warning.Rape_Non_Con
-        elif warning == "underage":
+        elif warning == "underage sex":
             return Params.Warning.Underage_Sex
         return Params.Warning.No_Archive_Warnings_Apply
     @staticmethod

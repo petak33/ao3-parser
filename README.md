@@ -111,18 +111,18 @@ All data that is parsed from a page into works can be seen below.
 ID: int
 Title: str
 Authors: list[str]
-Fandom: list[str]
-Summary: str
+Fandoms: list[str]
+Summary: str | None
 
 Language: str
-Words: int
+Words: int | None
 Chapters: int
-Expected_Chapters: int
-Comments: int
-Kudos: int
-Bookmarks: int
-Hits: int
-UpdateDate: datetime
+Expected_Chapters: int | None
+Comments: int | None
+Kudos: int | None
+Bookmarks: int | None
+Hits: int | None
+Updated: datetime
 
 Rating: Params.Rating
 Categories: list[Params.Category]
@@ -132,7 +132,8 @@ Completed: bool
 Relationships: list[str]
 Characters: list[str]
 Additional_Tags: list[str]
+
+Published: datetime | None
 ```
-`Summary`, `Words`, `Expected_Chapters`, `Comments`, `Kudos`, `Bookmarks` and `Hits` are set to `None` if not specified on a page.
 ### Notes
 `Params.Category.No_Category` is not recognized as a valid ID on AO3 and should not be used with `Search`.

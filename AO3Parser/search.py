@@ -1,5 +1,3 @@
-from sympy.physics.units import joules
-
 from .extra import Extra
 from .params import Params
 

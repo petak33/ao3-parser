@@ -44,6 +44,7 @@ class Page:
                         else:
                             summary += child.text
                     summary += '\n'
+            del summary_block
 
             stats = work.find(class_="stats")
             chapters, expected_chapters = stats.find("dd", class_="chapters").text.split('/')
@@ -80,7 +81,7 @@ class Page:
                 parseStats(stats.find("dd", class_="kudos")),                                   # Kudos
                 parseStats(stats.find("dd", class_="bookmarks")),                               # Bookmarks
                 parseStats(stats.find("dd", class_="hits")),                                    # Hits
-                datetime.strptime(work.find(class_="datetime").text, "%d %b %Y"),        # UpdateDate
+                datetime.strptime(work.find(class_="datetime").text, "%d %b %Y"),               # UpdateDate
                 Params.parseRating(req_tags[0].text),                                           # Rating
                 Params.parseCategories(req_tags[2].text.split(", ")),                           # Categories
                 Params.parseWarnings(req_tags[1].text.split(", ")),                             # Warnings

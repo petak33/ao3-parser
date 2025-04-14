@@ -1,5 +1,5 @@
 from .extra import Extra
-from .extra import RateLimitException
+from .extra import RateLimitException, FormatException
 
 from .params import Params
 from .search import SearchWorks

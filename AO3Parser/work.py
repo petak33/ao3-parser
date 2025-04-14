@@ -116,25 +116,25 @@ class Work:
             return int(stat.text.replace(',', '')) if stat and stat.text else None
 
         return cls(
-            int(html.find("div", class_="chapter preface group").find("h3", class_="title").find("a", href=True)["href"].split('/')[2]),  # ID
-            html.find("h2", class_="title heading").text.strip(),                           # Title
-            authors,                                                                        # Authors
-            fandoms,                                                                        # Fandoms
-            summary.strip() if summary else None,                                           # Summary
-            meta.find("dd", class_="language").text.strip(),                                # Language
-            parseStats(stats.find("dd", class_="words")),                                   # Words
-            int(chapters.replace(',', '')),                                                 # Chapters
-            int(expected_chapters.replace(',', '')) if expected_chapters != '?' else None,  # Expected Chapters
-            parseStats(stats.find("dd", class_="comments")),                                # Comments
-            parseStats(stats.find("dd", class_="kudos")),                                   # Kudos
-            parseStats(stats.find("dd", class_="bookmarks")),                               # Bookmarks
-            parseStats(stats.find("dd", class_="hits")),                                    # Hits
-            datetime.strptime(stats.find("dd", class_="status").text, "%Y-%m-%d"),          # UpdateDate
-            Params.parseRating(meta.find("dd", class_="rating tags").text.strip()),         # Rating
-            Params.parseCategories(categories),                                             # Categories
-            Params.parseWarnings(warnings),                                                 # Warnings
-            chapters == expected_chapters,                                                  # Completed
-            relationships, characters, freeforms                                            # Tags
+            int(html.find("li", class_="share").find("a", href=True)["href"].split('/')[2]),  # ID
+            html.find("h2", class_="title heading").text.strip(),                             # Title
+            authors,                                                                          # Authors
+            fandoms,                                                                          # Fandoms
+            summary.strip() if summary else None,                                             # Summary
+            meta.find("dd", class_="language").text.strip(),                                  # Language
+            parseStats(stats.find("dd", class_="words")),                                     # Words
+            int(chapters.replace(',', '')),                                                   # Chapters
+            int(expected_chapters.replace(',', '')) if expected_chapters != '?' else None,    # Expected Chapters
+            parseStats(stats.find("dd", class_="comments")),                                  # Comments
+            parseStats(stats.find("dd", class_="kudos")),                                     # Kudos
+            parseStats(stats.find("dd", class_="bookmarks")),                                 # Bookmarks
+            parseStats(stats.find("dd", class_="hits")),                                      # Hits
+            datetime.strptime(stats.find("dd", class_="status").text, "%Y-%m-%d"),            # UpdateDate
+            Params.parseRating(meta.find("dd", class_="rating tags").text.strip()),           # Rating
+            Params.parseCategories(categories),                                               # Categories
+            Params.parseWarnings(warnings),                                                   # Warnings
+            chapters == expected_chapters,                                                    # Completed
+            relationships, characters, freeforms                                              # Tags
         )
 
     def __str__(self):

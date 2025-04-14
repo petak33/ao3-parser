@@ -18,3 +18,7 @@ class Extra:
 class RateLimitException(Exception):
     def __init__(self):
         super().__init__("Retry later")
+
+class FormatException(Exception):
+    def __init__(self, message):
+        super().__init__(message)

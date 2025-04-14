@@ -1,4 +1,4 @@
-from .extra import RateLimitException
+from .extra import RateLimitException, FormatException
 from .params import Params
 from .work import Work
 
@@ -12,16 +12,18 @@ class Page:
 
     def __init__(self, html: bytes):
         if html == b"Retry later\n":
-            raise RateLimitException
+            raise RateLimitException()
         html = bs4.BeautifulSoup(html, "html.parser")
 
+        html = html.find("div", id="main")
+        if not html:
+            raise FormatException("Missing div main")
+
         self.Works = []
-        main = html.find("div", id="main")
-        if main.find('p').text.strip() == "No results found. You may want to edit your search to make it less specific.":
+        if html.find('p').text.strip() == "No results found. You may want to edit your search to make it less specific.":
             self.Total_Works = 0
             return
-        self.Total_Works = int(main.find("h3", class_="heading").text.strip()[0:-9].replace(',', ''))
-        del main
+        self.Total_Works = int(html.find("h3", class_="heading").text.strip()[0:-9].replace(',', ''))
 
         for work in html.findAll(role="article"):
             authors: list[str] = []

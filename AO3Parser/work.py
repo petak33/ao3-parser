@@ -32,7 +32,7 @@ class Work:
 
     Published: datetime | None
 
-    def __init__(self, ID: int, Title: str, Authors: [str], Fandoms: list[str], Summary: str | None,
+    def __init__(self, ID: int, Title: str, Authors: list[str], Fandoms: list[str], Summary: str | None,
                  Language: str, Words: int | None, Chapters: int, Expected_Chapters: int | None, Comments: int | None, Kudos: int | None, Bookmarks: int | None, Hits: int | None, Updated: datetime,
                  Rating: Params.Rating, Categories: list[Params.Category], Warnings: list[Params.Warning], Completed: bool,
                  Relationships: list[str], Characters: list[str], Additional_Tags: list[str],

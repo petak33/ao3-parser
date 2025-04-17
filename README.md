@@ -97,15 +97,35 @@ page_data = requests.get(url).content
 page = AO3P.Page(page_data)
 print(f"Total works: {page.Total_Works}")
 print(f"Works on page: {len(page.Works)}")
-print(f"Title of the first work: [{page.Works[0].Title}]")
+print(f"Title of the first work: {page.Works[0].Title}")
 ```
 ```
 Total works: 282069
 Works on page: 20
-Title of the first work: [Title Of This Work]
+Title of the first work: Title Of This Work
 ```
 
 ## Work
+
+```python
+import AO3Parser as AO3P
+import requests
+
+work_id = 123456789
+url = f"https://archiveofourown.org/works/{work_id}"
+work_data = requests.get(url).content
+
+work = AO3P.Work.FromHTML(work_data)
+print(f"ID of the parsed work: {work.ID}")
+print(f"With the title: {work.Title}")
+print(f"Published on this date: {work.Published}")
+```
+```
+ID of the parsed work: 123456789
+With the title: Title Of This Work
+Published on this date: 2025-04-17 00:00:00
+```
+
 All data that is parsed from a page into works can be seen below.
 ```python
 ID: int

@@ -124,7 +124,7 @@ class Work:
         updated = stats.find("dd", class_="status")
 
         return cls(
-            int(html.find("li", class_="share").find("a", href=True)["href"].split('/')[2]),  # ID
+            int(html.find("div", id="feedback").find("form", id="new_kudo").find("input", id="kudo_commentable_id")["value"]),  # ID
             html.find("h2", class_="title heading").text.strip(),                             # Title
             authors,                                                                          # Authors
             fandoms,                                                                          # Fandoms
